@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solutions – Astra Technologies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--navy:#05101f;--navy2:#0a1f3a;--blue:#0d3b72;--accent:#00b4d8;--gold:#e8b84b;--white:#fff;--muted:#8da3bb;--border:rgba(13,59,114,.18);--card-bg:rgba(255,255,255,.045);--radius:14px;--font-h:'Raleway',sans-serif;--font-b:'Inter',sans-serif;--tr:.35s cubic-bezier(.4,0,.2,1)}
+    html{scroll-behavior:smooth}
+    body{background:var(--navy);color:var(--white);font-family:var(--font-b);font-size:16px;line-height:1.65;overflow-x:hidden}
+    ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--navy)}::-webkit-scrollbar-thumb{background:var(--accent);border-radius:4px}
+    body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:.3}
+    .container{width:min(1180px,92vw);margin-inline:auto}
+    .tag{display:inline-block;font-family:var(--font-h);font-weight:700;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:30px;padding:.25rem .85rem;margin-bottom:1rem}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-h);font-weight:700;font-size:.92rem;letter-spacing:.04em;padding:.78rem 1.8rem;border-radius:8px;cursor:pointer;text-decoration:none;transition:var(--tr);border:2px solid transparent}
+    .btn-primary{background:var(--accent);color:var(--navy)}.btn-primary:hover{background:#00d4fc;transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,180,216,.35)}
+    .btn-outline{background:transparent;color:var(--white);border-color:rgba(255,255,255,.35)}.btn-outline:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}.reveal.visible{opacity:1;transform:none}
+    .section-title{font-family:var(--font-h);font-weight:800;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.2}
+    .section-sub{color:var(--muted);font-size:1rem;margin-top:.75rem;max-width:560px}
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 0;transition:var(--tr);background:transparent}
+    nav.scrolled{background:rgba(5,16,31,.95);backdrop-filter:blur(18px);padding:.65rem 0;border-bottom:1px solid var(--border);box-shadow:0 4px 30px rgba(0,0,0,.3)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .nav-logo{height:34px;filter:brightness(0) invert(1)}
+    .nav-links{display:flex;align-items:center;gap:1.75rem;list-style:none}
+    .nav-links a{font-family:var(--font-h);font-weight:600;font-size:.88rem;letter-spacing:.04em;color:rgba(255,255,255,.8);text-decoration:none;transition:var(--tr);position:relative;white-space:nowrap}
+    .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;background:var(--accent);border-radius:2px;transform:scaleX(0);transform-origin:left;transition:var(--tr)}
+    .nav-links a:hover{color:#fff}.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}.nav-links a.active{color:#fff}
+    .nav-cta{font-size:.82rem!important;padding:.45rem 1.1rem!important}
+    .has-dropdown{position:relative}
+    .dropdown{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%);background:var(--navy2);border:1px solid var(--border);border-radius:10px;padding:.5rem 0;min-width:200px;opacity:0;visibility:hidden;transition:var(--tr);pointer-events:none;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+    .has-dropdown:hover .dropdown{opacity:1;visibility:visible;pointer-events:all}
+    .dropdown a{display:block;padding:.5rem 1.1rem;font-size:.83rem;color:var(--muted);transition:var(--tr);white-space:nowrap}
+    .dropdown a:hover{color:var(--accent);background:rgba(0,180,216,.07)}.dropdown a::after{display:none!important}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.4rem;background:none;border:none}
+    .hamburger span{width:24px;height:2px;background:#fff;border-radius:2px;transition:var(--tr);display:block}
+    .hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}.hamburger.open span:nth-child(2){opacity:0}.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+    @media(max-width:860px){.nav-links{display:none}.hamburger{display:flex}}
+    /* MOBILE MENU */
+    .mobile-menu{display:none;position:fixed;inset:0;z-index:999;background:rgba(5,16,31,.98);backdrop-filter:blur(20px);flex-direction:column;align-items:center;justify-content:center;gap:1.25rem;padding:2rem}
+    .mobile-menu.open{display:flex}
+    .mobile-nav-logo{height:26px;filter:brightness(0) invert(1);margin-bottom:.25rem}
+    .mobile-menu a{font-family:var(--font-h);font-weight:700;font-size:1.15rem;color:rgba(255,255,255,.85);text-decoration:none;letter-spacing:.04em;transition:var(--tr);padding:.4rem 1.5rem;border-radius:8px;width:100%;text-align:center;max-width:260px}
+    .mobile-menu a:hover,.mobile-menu a.active{color:var(--accent);background:rgba(0,180,216,.08)}
+    .mobile-divider{width:40px;height:1px;background:var(--border)}
+    .mobile-close{position:absolute;top:1.2rem;right:1.2rem;background:rgba(255,255,255,.06);border:1px solid var(--border);color:#fff;font-size:1rem;cursor:pointer;width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;transition:var(--tr)}
+    .mobile-close:hover{background:rgba(0,180,216,.15);border-color:var(--accent);color:var(--accent)}
+    /* PAGE HERO */
+    .page-hero{padding:9rem 0 5rem;position:relative;overflow:hidden;text-align:center}
+    .hero-grid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(0,180,216,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,180,216,.06) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 40%,transparent 100%);animation:gridShift 20s linear infinite}
+    @keyframes gridShift{to{background-position:60px 60px}}
+    .hero-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+    .hero-orb-1{width:500px;height:500px;background:var(--blue);top:-150px;right:-100px;opacity:.2}
+    .hero-orb-2{width:350px;height:350px;background:var(--accent);bottom:-100px;left:-50px;opacity:.1}
+    .page-hero-inner{position:relative;z-index:2}
+    .page-hero h1{font-family:var(--font-h);font-weight:900;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.1;margin-bottom:1rem}
+    .page-hero h1 em{font-style:normal;color:var(--accent)}
+    .page-hero p{color:var(--muted);font-size:1.05rem;max-width:520px;margin-inline:auto}
+    .breadcrumb{display:flex;align-items:center;justify-content:center;gap:.5rem;font-size:.82rem;color:var(--muted);margin-bottom:1.5rem}
+    .breadcrumb a{color:var(--muted);text-decoration:none;transition:var(--tr)}.breadcrumb a:hover{color:var(--accent)}
+    .breadcrumb span{color:var(--accent)}
+    /* BACK TO TOP */
+    .back-top{position:fixed;bottom:1.5rem;right:1.5rem;z-index:900;width:42px;height:42px;border-radius:10px;background:var(--accent);color:var(--navy);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:800;box-shadow:0 6px 20px rgba(0,180,216,.4);opacity:0;pointer-events:none;transition:var(--tr)}
+    .back-top.show{opacity:1;pointer-events:all}.back-top:hover{transform:translateY(-3px);background:#00d4fc}
+    /* CONTACT */
+    /* DOWNLOADS SECTION */
+    .downloads-section{padding:6rem 0;position:relative;z-index:1;border-top:1px solid var(--border)}
+    .downloads-header{text-align:center;margin-bottom:3rem}
+    .downloads-grid{display:grid;grid-template-columns:1fr;gap:.5rem}
+    .download-item{display:grid;grid-template-columns:80px 1fr 80px 100px 120px 140px;gap:1.5rem;align-items:center;padding:1.2rem 1.5rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;transition:var(--tr)}
+    .download-item:hover{background:rgba(0,180,216,.06);border-color:var(--accent)}
+    .download-icon{display:flex;align-items:center;justify-content:center;width:60px;height:60px;background:rgba(0,180,216,.15);border:2px solid var(--accent);border-radius:8px;font-weight:700;font-size:1rem;color:var(--accent);font-family:var(--font-h)}
+    .download-name{font-family:var(--font-h);font-weight:600;font-size:.95rem;color:var(--white)}
+    .download-type{font-size:.8rem;color:var(--muted);margin-top:.2rem}
+    .download-size{text-align:right;font-size:.85rem;color:var(--muted)}
+    .download-date{text-align:right;font-size:.85rem;color:var(--muted)}
+    .download-btn{display:flex;align-items:center;justify-content:center;gap:.4rem;font-size:.78rem;color:var(--accent);text-decoration:none;cursor:pointer;transition:var(--tr);font-weight:600;white-space:nowrap}
+    .download-btn:hover{color:#00d4fc}
+    @media(max-width:1024px){.download-item{grid-template-columns:60px 1fr 60px;gap:1rem}.download-size,.download-date{display:none}}
+    .contact-section{padding:6rem 0;position:relative;z-index:1}
+    .contact-inner{display:grid;grid-template-columns:1fr 1.3fr;gap:4rem;align-items:start}
+    .contact-title{font-family:var(--font-h);font-weight:900;font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.2;margin-bottom:.75rem}
+    .contact-title em{font-style:normal;color:var(--accent)}
+    .contact-sub{color:var(--muted);font-size:.95rem;line-height:1.7;margin-bottom:2rem}
+    .contact-details{display:flex;flex-direction:column;gap:1.25rem}
+    .contact-detail-item{display:flex;align-items:flex-start;gap:1rem}
+    .contact-detail-icon{width:42px;height:42px;border-radius:10px;background:rgba(0,180,216,.1);border:1px solid rgba(0,180,216,.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+    .contact-detail-item strong{display:block;font-family:var(--font-h);font-weight:700;font-size:.88rem;margin-bottom:.2rem}
+    .contact-detail-item span,.contact-detail-item a{font-size:.88rem;color:var(--muted);text-decoration:none;transition:var(--tr)}
+    .contact-detail-item a:hover{color:var(--accent)}
+    .contact-right{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:18px;padding:2rem}
+    .contact-form{display:flex;flex-direction:column;gap:1.1rem}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .form-group{display:flex;flex-direction:column;gap:.4rem}
+    .form-group label{font-family:var(--font-h);font-weight:600;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+    .form-group input,.form-group select,.form-group textarea{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:8px;padding:.7rem 1rem;font-family:var(--font-b);font-size:.9rem;color:#fff;outline:none;transition:var(--tr);width:100%;resize:vertical}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent);background:rgba(0,180,216,.06)}
+    .form-group input::placeholder,.form-group textarea::placeholder{color:rgba(141,163,187,.5)}
+    .form-group select option{background:var(--navy2);color:#fff}
+    .form-note{font-size:.78rem;color:var(--muted);text-align:center;margin-top:.25rem}
+    .form-success{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:3rem 1rem;text-align:center}
+    .success-icon{font-size:3rem}
+    .form-success h3{font-family:var(--font-h);font-weight:800;font-size:1.4rem}
+    .form-success p{color:var(--muted);font-size:.9rem}
+    @media(max-width:860px){.contact-inner{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}
+    /* FOOTER */
+    footer{padding:3.5rem 0 2rem;border-top:1px solid var(--border);background:rgba(5,16,31,.7);position:relative;z-index:1}
+    .footer-inner{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}
+    .footer-brand-logo{height:28px;filter:brightness(0) invert(1);margin-bottom:.85rem;display:block}
+    .footer-brand p{font-size:.85rem;color:var(--muted);line-height:1.7}
+    .footer-col h4{font-family:var(--font-h);font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:.9rem}
+    .footer-col a{display:block;font-size:.85rem;color:var(--muted);text-decoration:none;margin-bottom:.45rem;transition:var(--tr)}
+    .footer-col a:hover{color:var(--accent);padding-left:4px}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;border-top:1px solid var(--border);flex-wrap:wrap;gap:1rem}
+    .footer-bottom p{font-size:.8rem;color:var(--muted)}
+    .social-links{display:flex;gap:.6rem}
+    .social-link{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;font-size:.88rem;transition:var(--tr)}
+    .social-link:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,180,216,.07)}
+    @media(max-width:860px){.footer-inner{grid-template-columns:1fr 1fr}.footer-brand{grid-column:1/-1}}
+    @media(max-width:480px){.footer-inner{grid-template-columns:1fr}}
+
+    .solutions-section{padding:5rem 0 7rem;position:relative;z-index:1}
+    .section-header{text-align:center;margin-bottom:3.5rem}
+    .solutions-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+    .solution-card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:2rem;position:relative;overflow:hidden;transition:var(--tr)}
+    .solution-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--blue));transform:scaleX(0);transform-origin:left;transition:var(--tr)}
+    .solution-card:hover{border-color:rgba(0,180,216,.4);transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,.25)}.solution-card:hover::after{transform:scaleX(1)}
+    .solution-icon{width:52px;height:52px;border-radius:13px;background:rgba(0,180,216,.1);border:1px solid rgba(0,180,216,.2);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.2rem;transition:var(--tr)}
+    .solution-card:hover .solution-icon{background:rgba(0,180,216,.2);transform:scale(1.05)}
+    .solution-card h3{font-family:var(--font-h);font-weight:800;font-size:1.1rem;margin-bottom:.5rem}
+    .solution-card p{font-size:.88rem;color:var(--muted);line-height:1.65}
+    .solution-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:1rem}
+    .solution-tag{font-size:.68rem;font-weight:600;background:rgba(0,180,216,.08);border:1px solid rgba(0,180,216,.18);color:var(--accent);border-radius:20px;padding:.18rem .6rem}
+    @media(max-width:860px){.solutions-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:500px){.solutions-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose">✕</button>
+    <img src="https://astratechnologies.in/wp-content/uploads/2025/11/astra-technologies.png" alt="Astra" class="mobile-nav-logo" onerror="this.style.display='none'">
+    <div class="mobile-divider"></div>
+    <a href="index.html">Home</a>
+    <a href="about_us.html">About Us</a>
+    <a href="Product.html">Products</a>
+    <a href="solutions.html" class="active">Solutions</a>
+    <a href="#contact">Contact Us</a>
+    <div class="mobile-divider"></div>
+    <a href="#contact" class="btn btn-primary" style="margin-top:.5rem;justify-content:center;width:100%;max-width:200px">Get a Demo</a>
+  </div>
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" style="display:flex;align-items:center;text-decoration:none;gap:.6rem">
+        <img src="https://astratechnologies.in/wp-content/uploads/2025/11/astra-technologies.png" alt="Astra Technologies" class="nav-logo" onerror="this.style.display='none';document.getElementById('nlt').style.display='block'">
+        <span id="nlt" style="display:none;font-family:'Raleway',sans-serif;font-weight:900;font-size:1.1rem;letter-spacing:.04em;color:#fff">ASTRA TECHNOLOGIES</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about_us.html">About Us</a></li>
+        <li class="has-dropdown">
+          <a href="Product.html">Products ▾</a>
+          <div class="dropdown">
+            <a href="Product.html#time-attendance">Time Attendance</a>
+            <a href="Product.html#access-control">Access Controller</a>
+            <a href="Product.html#android-terminals">Android Terminals</a>
+            <a href="Product.html#smart-door-lock">Smart Door Lock</a>
+            <a href="Product.html#smart-entrance">Smart Entrance Control</a>
+            <a href="Product.html#security-inspection">Security Inspection</a>
+            <a href="Product.html#software">Software</a>
+            <a href="Product.html#armatura">Armatura</a>
+          </div>
+        </li>
+        <li><a href="solutions.html" class="active">Solutions</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+        <li><a href="#contact" class="btn btn-primary nav-cta">Get a Demo</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="hero-grid"></div><div class="hero-orb hero-orb-1"></div><div class="hero-orb hero-orb-2"></div>
+    <div class="container page-hero-inner">
+      <div class="breadcrumb"><a href="index.html">Home</a><span>›</span><span style="color:#fff">Solutions</span></div>
+      <div class="tag">What We Solve</div>
+      <h1>Industry <em>Solutions</em></h1>
+      <p>From corporate campuses to government facilities — Astra deploys end-to-end identity and access control solutions tailored to your industry.</p>
+    </div>
+  </section>
+  <section class="solutions-section"><div class="container">
+    <div class="section-header reveal">
+      <div class="tag">Our Verticals</div>
+      <h2 class="section-title">Solving Access for Every Industry</h2>
+      <p class="section-sub" style="margin-inline:auto">Purpose-built integrations for the environments that matter most.</p>
+    </div>
+    <div class="solutions-grid">
+      <div class="solution-card reveal"><div class="solution-icon">🏢</div><h3>Corporate &amp; IT Parks</h3><p>Multi-floor access control, visitor management, and time-attendance for large workforces across multiple sites.</p><div class="solution-tags"><span class="solution-tag">Flap Barriers</span><span class="solution-tag">Time Attendance</span><span class="solution-tag">HRMS Integration</span></div></div>
+      <div class="solution-card reveal"><div class="solution-icon">🏭</div><h3>Manufacturing &amp; Factories</h3><p>Rugged biometric terminals for shift tracking, zone-restricted access, and production floor monitoring.</p><div class="solution-tags"><span class="solution-tag">Tripod Turnstile</span><span class="solution-tag">Fingerprint</span><span class="solution-tag">Payroll Export</span></div></div>
+      <div class="solution-card reveal"><div class="solution-icon">🏥</div><h3>Healthcare &amp; Hospitals</h3><p>Touchless access for sterile zones, staff authentication, and visitor restriction at ward and ICU entrances.</p><div class="solution-tags"><span class="solution-tag">Face Recognition</span><span class="solution-tag">Touchless</span><span class="solution-tag">Visitor Mgmt</span></div></div>
+      <div class="solution-card reveal"><div class="solution-icon">🏫</div><h3>Education &amp; Universities</h3><p>Campus-wide access control, library and lab management, exam hall security with smartphone detection.</p><div class="solution-tags"><span class="solution-tag">Campus Access</span><span class="solution-tag">Smartphone Detector</span><span class="solution-tag">Boom Barrier</span></div></div>
+      <div class="solution-card reveal"><div class="solution-icon">🏨</div><h3>Hotels &amp; Hospitality</h3><p>Smart hotel locks, guest check-in kiosks, and staff attendance — all integrated with your property management system.</p><div class="solution-tags"><span class="solution-tag">Hotel Smart Lock</span><span class="solution-tag">Android Kiosk</span><span class="solution-tag">PMS Integration</span></div></div>
+      <div class="solution-card reveal"><div class="solution-icon">🏛️</div><h3>Government &amp; Defence</h3><p>High-security perimeter control, X-ray baggage inspection, and biometric identity verification for sensitive facilities.</p><div class="solution-tags"><span class="solution-tag">X-Ray Scanner</span><span class="solution-tag">Full Height Turnstile</span><span class="solution-tag">Multi-Modal</span></div></div>
+      <div class="solution-card reveal"><div class="solution-icon">🏬</div><h3>Retail &amp; Malls</h3><p>People counting, queue management, staff access, and CCTV surveillance integrated into one platform.</p><div class="solution-tags"><span class="solution-tag">IP Camera</span><span class="solution-tag">Swing Barrier</span><span class="solution-tag">LPR Parking</span></div></div>
+      <div class="solution-card reveal"><div class="solution-icon">🏗️</div><h3>Construction &amp; Worksites</h3><p>Contractor attendance, sub-contractor tracking, and portable handheld biometric enrolment on-site.</p><div class="solution-tags"><span class="solution-tag">Portable Android</span><span class="solution-tag">Cloud Attendance</span><span class="solution-tag">Multi-Site</span></div></div>
+      <div class="solution-card reveal"><div class="solution-icon">🏘️</div><h3>Residential &amp; Gated Communities</h3><p>Boom barriers, video intercoms, and smart door locks — seamless access for residents and controlled entry for visitors.</p><div class="solution-tags"><span class="solution-tag">Boom Barrier</span><span class="solution-tag">SIP Intercom</span><span class="solution-tag">Smart Lock</span></div></div>
+    </div>
+  </div></section>
+
+  </section>
+
+  <!-- DOWNLOADS SECTION -->
+  <section class="downloads-section">
+    <div class="container">
+      <div class="downloads-header reveal">
+        <div class="tag">Resources</div>
+        <h2 class="section-title">Software & Documentation Downloads</h2>
+        <p class="section-sub" style="margin-inline:auto">Download the latest software packages, drivers, and documentation for our solutions and ZKTeco products.</p>
+      </div>
+      
+      <div class="downloads-grid">
+        <!-- ZKTeco Products Section Header -->
+        <div style="grid-column:1/-1;padding:1.5rem 0;border-bottom:2px solid var(--border);margin-bottom:1rem">
+          <h3 style="font-family:var(--font-h);font-weight:700;color:var(--accent);font-size:1.1rem">ZKTeco Software Suite</h3>
+        </div>
+
+        <!-- Easy Cafeteria -->
+        <div class="download-item reveal">
+          <div class="download-icon">ZIP</div>
+          <div>
+            <div class="download-name">Easy Cafeteria</div>
+            <div class="download-type">Cafeteria Management Software</div>
+          </div>
+          <div class="download-type">zip</div>
+          <div class="download-size">251.39 MB</div>
+          <div class="download-date">Latest</div>
+          <a href="https://www.zkteco.in/time-attendance-software/easy-cafeteria#Download" class="download-btn" target="_blank">⬇️ Download</a>
+        </div>
+
+        <!-- ZKTime.Net-3.0 -->
+        <div class="download-item reveal">
+          <div class="download-icon">ZIP</div>
+          <div>
+            <div class="download-name">ZKTime.Net-3.0</div>
+            <div class="download-type">Time & Attendance Solution</div>
+          </div>
+          <div class="download-type">zip</div>
+          <div class="download-size">91.24 MB</div>
+          <div class="download-date">Latest</div>
+          <a href="https://www.zkteco.in/time-attendance-software/ZKTime.Net-3.0#Download" class="download-btn" target="_blank">⬇️ Download</a>
+        </div>
+
+        <!-- Easy Gymfit -->
+        <div class="download-item reveal">
+          <div class="download-icon">ZIP</div>
+          <div>
+            <div class="download-name">Easy Gymfit</div>
+            <div class="download-type">Gym & Fitness Management</div>
+          </div>
+          <div class="download-type">zip</div>
+          <div class="download-size">1.09 GB</div>
+          <div class="download-date">Latest</div>
+          <a href="https://www.zkteco.in/time-attendance-software/easy-gymfit#Download" class="download-btn" target="_blank">⬇️ Download</a>
+        </div>
+
+        <!-- Astra Solutions Section Header -->
+        <div style="grid-column:1/-1;padding:1.5rem 0 1rem;border-top:2px solid var(--border);border-bottom:2px solid var(--border);margin:1.5rem 0">
+          <h3 style="font-family:var(--font-h);font-weight:700;color:var(--accent);font-size:1.1rem">Astra Integrated Solutions</h3>
+        </div>
+
+        <!-- easyWDMS Linux -->
+        <div class="download-item reveal">
+          <div class="download-icon">ZIP</div>
+          <div>
+            <div class="download-name">easyWDMS-10.2.3-linux-x64</div>
+            <div class="download-type">Document Management System</div>
+          </div>
+          <div class="download-type">zip</div>
+          <div class="download-size">43.46 MB</div>
+          <div class="download-date">2026-03-30</div>
+          <a href="#contact" class="download-btn">⬇️ Download</a>
+        </div>
+
+        <!-- easyWDMS Windows -->
+        <div class="download-item reveal">
+          <div class="download-icon">ZIP</div>
+          <div>
+            <div class="download-name">easyWDMS-10.2.3-win-x64</div>
+            <div class="download-type">Document Management System</div>
+          </div>
+          <div class="download-type">zip</div>
+          <div class="download-size">312.41 MB</div>
+          <div class="download-date">2026-03-30</div>
+          <a href="#contact" class="download-btn">⬇️ Download</a>
+        </div>
+
+        <!-- easyTimePro Linux -->
+        <div class="download-item reveal">
+          <div class="download-icon">ZIP</div>
+          <div>
+            <div class="download-name">easyTimePro-10.2.3-linux-x64</div>
+            <div class="download-type">Time & Attendance Management</div>
+          </div>
+          <div class="download-type">zip</div>
+          <div class="download-size">43.5 MB</div>
+          <div class="download-date">2026-03-30</div>
+          <a href="#contact" class="download-btn">⬇️ Download</a>
+        </div>
+
+        <!-- easyTimePro Windows -->
+        <div class="download-item reveal">
+          <div class="download-icon">ZIP</div>
+          <div>
+            <div class="download-name">easyTimePro-10.2.3-win-x64</div>
+            <div class="download-type">Time & Attendance Management</div>
+          </div>
+          <div class="download-type">zip</div>
+          <div class="download-size">273.67 MB</div>
+          <div class="download-date">2026-03-30</div>
+          <a href="#contact" class="download-btn">⬇️ Download</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="contact-inner reveal">
+        <div class="contact-left">
+          <div class="tag">Get In Touch</div>
+          <h2 class="contact-title">Let's Secure Your <em>Premises</em></h2>
+          <p class="contact-sub">Talk to our biometric experts. We'll assess your site and propose the perfect solution — at the right budget.</p>
+          <div class="contact-details">
+            <div class="contact-detail-item"><span class="contact-detail-icon">📍</span><div><strong>Astra Technologies</strong><span>Bengaluru, Karnataka, India</span></div></div>
+            <div class="contact-detail-item"><span class="contact-detail-icon">📞</span><div><strong>Call Us</strong><a href="tel:+919483201072">+91 94832 01072</a></div></div>
+            <div class="contact-detail-item"><span class="contact-detail-icon">✉️</span><div><strong>Email Us</strong><a href="mailto:sales@astratechnologies.in">sales@astratechnologies.in</a></div></div>
+          </div>
+        </div>
+        <div class="contact-right">
+          <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div class="form-group"><label>Your Name *</label><input type="text" placeholder="John Doe" required></div>
+              <div class="form-group"><label>Phone Number *</label><input type="tel" placeholder="+91 98765 43210" required></div>
+            </div>
+            <div class="form-group"><label>Email Address *</label><input type="email" placeholder="john@company.com" required></div>
+            <div class="form-group"><label>Company / Organisation</label><input type="text" placeholder="Your company name"></div>
+            <div class="form-group"><label>What do you need?</label>
+              <select><option value="">Select a product / service…</option><option>Time Attendance System</option><option>Access Control</option><option>Smart Entrance / Turnstile</option><option>Smart Door Lock</option><option>Security Inspection</option><option>Video Surveillance</option><option>Software / Integration</option><option>AMC / Support</option><option>Other</option></select>
+            </div>
+            <div class="form-group"><label>Message</label><textarea rows="4" placeholder="Tell us about your site or requirements…"></textarea></div>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:.9rem">Send Message ✉️</button>
+            <p class="form-note">We respond within 24 hours on business days.</p>
+          </form>
+          <div class="form-success" id="formSuccess" style="display:none">
+            <div class="success-icon">✅</div><h3>Message Sent!</h3><p>Thank you. Our team will get back to you within 24 hours.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img src="https://astratechnologies.in/wp-content/uploads/2025/11/astra-technologies.png" alt="Astra Technologies" class="footer-brand-logo" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div style=\"font-family:Raleway,sans-serif;font-weight:900;font-size:1rem;margin-bottom:.85rem;color:#fff\">ASTRA TECHNOLOGIES</div>')">
+          <p>Your Rightful Identity,<br>Securely Delivered.<br><br>India's leading provider of biometric identity and access control solutions.</p>
+        </div>
+        <div class="footer-col"><h4>Products</h4>
+          <a href="Product.html#time-attendance">Time Attendance</a>
+          <a href="Product.html#access-control">Access Controller</a>
+          <a href="Product.html#smart-door-lock">Smart Door Lock</a>
+          <a href="Product.html#security-inspection">Security Inspection</a>
+          <a href="Product.html#smart-entrance">Smart Entrance</a>
+          <a href="Product.html#software">Software</a>
+        </div>
+        <div class="footer-col"><h4>Services</h4>
+          <a href="solutions.html">Biometric Access Control</a>
+          <a href="solutions.html">Visitor Management</a>
+          <a href="solutions.html">Time &amp; Attendance</a>
+          <a href="solutions.html">Custom Integrations</a>
+          <a href="solutions.html">Turnstile Solutions</a>
+          <a href="solutions.html">AMC &amp; Support</a>
+        </div>
+        <div class="footer-col"><h4>Company</h4>
+          <a href="about_us.html">About Us</a>
+          <a href="solutions.html">Solutions</a>
+          <a href="Product.html">Products</a>
+          <a href="#contact">Contact Us</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span id="footerYear">2025</span> Astra Technologies. All rights reserved.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Facebook">f</a>
+          <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+          <a href="#" class="social-link" aria-label="YouTube">▶</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+
+  <script>
+    const _nav=document.getElementById('navbar'),_bt=document.getElementById('backTop');
+    window.addEventListener('scroll',()=>{_nav.classList.toggle('scrolled',window.scrollY>60);_bt.classList.toggle('show',window.scrollY>400)});
+    _bt.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+    const _hb=document.getElementById('hamburger'),_mm=document.getElementById('mobileMenu'),_mc=document.getElementById('mobileClose');
+    _hb.addEventListener('click',()=>{_mm.classList.add('open');_hb.classList.add('open')});
+    _mc.addEventListener('click',()=>{_mm.classList.remove('open');_hb.classList.remove('open')});
+    _mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{_mm.classList.remove('open');_hb.classList.remove('open')}));
+    document.getElementById('footerYear').textContent=new Date().getFullYear();
+    function handleSubmit(e){e.preventDefault();document.getElementById('contactForm').style.display='none';document.getElementById('formSuccess').style.display='flex'}
+    const _rv=document.querySelectorAll('.reveal'),_io=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*70);_io.unobserve(e.target)}})},{threshold:0.08});
+    _rv.forEach(el=>_io.observe(el));
+  </script>
+</body>
+</html>
